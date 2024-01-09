@@ -28,15 +28,11 @@ public class VehicleShould {
   }
 
 
-  public class TestableVehicle extends Vehicle{
+  public class TestableVehicle extends PetrolCar
+  {
 
     @Override
-    public void fillUpWithFuel() {
-
-    }
-
-    @Override
-    public void chargeBattery() {
+    public void fill() {
 
     }
   }
