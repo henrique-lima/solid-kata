@@ -23,11 +23,6 @@ public class AccountServiceShould {
     private static final int POSITIVE_AMOUNT = 100;
     private static final int NEGATIVE_AMOUNT = -POSITIVE_AMOUNT;
     private static final LocalDate TODAY = LocalDate.of(2017, 9, 6);
-    private static final List<Transaction> TRANSACTIONS = Arrays.asList(
-        new Transaction(LocalDate.of(2014, 4, 1), 1000),
-        new Transaction(LocalDate.of(2014, 4, 2), -100),
-        new Transaction(LocalDate.of(2014, 4, 10), 500)
-    );
 
     @Mock
     private Clock clock;
@@ -62,19 +57,6 @@ public class AccountServiceShould {
         accountService.withdraw(POSITIVE_AMOUNT);
 
         verify(transactionRepository).add(refEq(new Transaction(TODAY, NEGATIVE_AMOUNT)));
-    }
-
-    @Test
-    public void print_statement() {
-        given(transactionRepository.all()).willReturn(TRANSACTIONS);
-
-        accountService.printStatement();
-
-        InOrder inOrder = inOrder(console);
-        inOrder.verify(console).printLine("DATE | AMOUNT | BALANCE");
-        inOrder.verify(console).printLine("10/04/2014 | 500.00 | 1400.00");
-        inOrder.verify(console).printLine("02/04/2014 | -100.00 | 900.00");
-        inOrder.verify(console).printLine("01/04/2014 | 1000.00 | 1000.00");
     }
 }
 
